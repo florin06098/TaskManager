@@ -1,4 +1,4 @@
-package fs.todo_project.rest;
+package fs.todo_project.handler;
 
 public class TaskNotFoundException extends RuntimeException{
     public TaskNotFoundException(String message) {

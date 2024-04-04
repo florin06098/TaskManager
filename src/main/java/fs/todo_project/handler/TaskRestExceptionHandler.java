@@ -1,4 +1,4 @@
-package fs.todo_project.rest;
+package fs.todo_project.handler;
 
 import fs.todo_project.entity.TaskErrorResponse;
 import org.springframework.http.HttpStatus;
