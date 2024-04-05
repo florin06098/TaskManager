@@ -1,8 +1,7 @@
 package fs.todo_project.service;
 
-import fs.todo_project.dao.TaskRepository;
+import fs.todo_project.repository.TaskRepository;
 import fs.todo_project.entity.Task;
-import fs.todo_project.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,9 +23,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task save(Task todo) {
-        taskRepository.save(todo);
-        return todo;
+    public Task save(Task task) {
+        taskRepository.save(task);
+        return task;
     }
 
     @Override

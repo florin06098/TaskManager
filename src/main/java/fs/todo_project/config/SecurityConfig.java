@@ -29,7 +29,7 @@ public class SecurityConfig {
     @Bean
     //authentication
     public UserDetailsService  userDetailsService() {
-        return new UserInfoUserDetailsService();
+        return new UserDetailsServiceExtension();
     }
 
     @Bean

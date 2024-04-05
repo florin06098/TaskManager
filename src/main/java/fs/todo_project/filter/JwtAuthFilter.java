@@ -1,5 +1,6 @@
 package fs.todo_project.filter;
-import fs.todo_project.config.UserInfoUserDetailsService;
+
+import fs.todo_project.config.UserDetailsServiceExtension;
 import fs.todo_project.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,7 +23,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private JwtService jwtService;
 
     @Autowired
-    private UserInfoUserDetailsService userDetailsService;
+    private UserDetailsServiceExtension userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

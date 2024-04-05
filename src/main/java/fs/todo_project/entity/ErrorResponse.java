@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TaskErrorResponse {
+public class ErrorResponse {
     private int status;
     private String message;
     private long timestamp;

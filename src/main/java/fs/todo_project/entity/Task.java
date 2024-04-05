@@ -1,9 +1,13 @@
 package fs.todo_project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity(name = "Tasks")
 @NoArgsConstructor
@@ -27,4 +31,7 @@ public class Task {
     private LocalDate deadline;
     @Column(name="is_finished")
     private boolean isFinished;
+    @ManyToMany(mappedBy = "tasks")
+    @JsonIgnore
+    private Set<User> users = new HashSet<>();
 }
