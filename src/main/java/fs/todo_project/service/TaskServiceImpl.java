@@ -2,15 +2,16 @@ package fs.todo_project.service;
 
 import fs.todo_project.repository.TaskRepository;
 import fs.todo_project.entity.Task;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
-    @Autowired
-    TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     @Override
     public Optional<Task> getTask(int theId) {
