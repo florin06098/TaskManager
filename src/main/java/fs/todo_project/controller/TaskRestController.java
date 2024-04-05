@@ -4,17 +4,14 @@ import fs.todo_project.config.UserDetailsExtension;
 import fs.todo_project.entity.Task;
 import fs.todo_project.entity.User;
 import fs.todo_project.handler.TaskNotFoundException;
-import fs.todo_project.repository.UserRepository;
 import fs.todo_project.service.JwtService;
 import fs.todo_project.service.TaskService;
 import fs.todo_project.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +19,7 @@ import java.util.Set;
 public class TaskRestController {
     private final JwtService jwtService;
     private final TaskService taskService;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("/task/{id}")
     public Task getTask(@PathVariable int id){
@@ -39,12 +36,13 @@ public class TaskRestController {
     }
 
     @PostMapping("/task")
-    public User createTask(@RequestBody Task theTask, Authentication authentication){
+    public Task createTaskForUser(@RequestBody Task theTask, Authentication authentication){
         UserDetailsExtension principal = (UserDetailsExtension) authentication.getPrincipal();
         User user = principal.getUser();
         theTask.setId(0);
         user.getTasks().add(theTask);
-        return userRepository.save(user);
+        userService.save(user);
+        return theTask;
     }
 
     @PutMapping("/task")

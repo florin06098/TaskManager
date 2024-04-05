@@ -11,4 +11,5 @@ public interface UserService {
     User updateUser(AuthRequest userRegistrationRequest);
     String deleteUser(int id);
     Optional<User> findByName(@Param("username") String username);
+    User save(User user);
 }
