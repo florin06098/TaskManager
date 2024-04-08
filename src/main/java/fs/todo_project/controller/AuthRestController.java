@@ -3,7 +3,6 @@ package fs.todo_project.controller;
 import fs.todo_project.entity.AuthRequest;
 import fs.todo_project.service.JwtService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

@@ -12,7 +12,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@NamedEntityGraph(
+        name = "user-with-tasks-graph",
+        attributeNodes = @NamedAttributeNode("tasks")
+)public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,15 +26,7 @@ public class User {
     @JsonIgnore
     private String roles;
 
-    public User(int id, String name, String email, String password, String roles) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
-    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "users_tasks",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "task_id"))

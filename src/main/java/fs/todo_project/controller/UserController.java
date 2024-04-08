@@ -4,7 +4,6 @@ import fs.todo_project.entity.AuthRequest;
 import fs.todo_project.entity.User;
 import fs.todo_project.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerNewUser(@RequestBody AuthRequest authRequest){
         User registeredUser = userService.registerUser(authRequest);
-        return registeredUser != null ? "Successfuly registered the user" : "User already exists";
+        return registeredUser != null ? "Successfully registered the user" : "User already exists";
     }
 
     @PutMapping("/update")
@@ -27,7 +26,7 @@ public class UserController {
 
     @DeleteMapping("/remove/{userId}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String removeUser(@PathVariable int userId){
+    public String removeUser(@PathVariable Integer userId){
         String response = userService.deleteUser(userId);
         return response;
     }
