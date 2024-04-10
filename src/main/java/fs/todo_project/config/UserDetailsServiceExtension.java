@@ -1,6 +1,6 @@
 package fs.todo_project.config;
 import fs.todo_project.repository.UserRepository;
-import fs.todo_project.entity.User;
+import fs.todo_project.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

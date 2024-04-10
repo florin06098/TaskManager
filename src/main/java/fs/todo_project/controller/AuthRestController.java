@@ -1,6 +1,6 @@
 package fs.todo_project.controller;
 
-import fs.todo_project.entity.AuthRequest;
+import fs.todo_project.model.AuthRequest;
 import fs.todo_project.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,9 +1,8 @@
 package fs.todo_project.service;
 
 import fs.todo_project.repository.TaskRepository;
-import fs.todo_project.entity.Task;
+import fs.todo_project.model.Task;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;

@@ -2,8 +2,8 @@ package fs.todo_project.service;
 
 import fs.todo_project.handler.UserAlreadyExists;
 import fs.todo_project.repository.UserRepository;
-import fs.todo_project.entity.AuthRequest;
-import fs.todo_project.entity.User;
+import fs.todo_project.model.AuthRequest;
+import fs.todo_project.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

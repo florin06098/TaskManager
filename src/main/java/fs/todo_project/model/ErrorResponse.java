@@ -1,4 +1,4 @@
-package fs.todo_project.entity;
+package fs.todo_project.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

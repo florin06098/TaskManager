@@ -1,4 +1,4 @@
-package fs.todo_project.entity;
+package fs.todo_project.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

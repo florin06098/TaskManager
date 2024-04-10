@@ -1,6 +1,6 @@
 package fs.todo_project.config;
 
-import fs.todo_project.entity.User;
+import fs.todo_project.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

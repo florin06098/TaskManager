@@ -1,6 +1,6 @@
 package fs.todo_project.service;
 
-import fs.todo_project.entity.AttachedFile;
+import fs.todo_project.model.AttachedFile;
 import java.util.Optional;
 
 public interface AttachedFilesService {

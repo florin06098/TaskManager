@@ -1,9 +1,9 @@
 package fs.todo_project.controller;
 
 import fs.todo_project.config.UserDetailsExtension;
-import fs.todo_project.entity.Task;
-import fs.todo_project.entity.TaskStatus;
-import fs.todo_project.entity.User;
+import fs.todo_project.model.Task;
+import fs.todo_project.model.TaskStatus;
+import fs.todo_project.model.User;
 import fs.todo_project.handler.TaskNotFoundException;
 import fs.todo_project.service.JwtService;
 import fs.todo_project.service.TaskService;

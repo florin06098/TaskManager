@@ -1,7 +1,7 @@
 package fs.todo_project.controller;
 
-import fs.todo_project.entity.AuthRequest;
-import fs.todo_project.entity.User;
+import fs.todo_project.model.AuthRequest;
+import fs.todo_project.model.User;
 import fs.todo_project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

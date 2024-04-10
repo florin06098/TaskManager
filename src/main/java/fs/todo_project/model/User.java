@@ -1,4 +1,4 @@
-package fs.todo_project.entity;
+package fs.todo_project.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

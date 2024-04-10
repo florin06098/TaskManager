@@ -1,6 +1,6 @@
 package fs.todo_project.service;
 
-import fs.todo_project.entity.Task;
+import fs.todo_project.model.Task;
 
 import java.util.List;
 import java.util.Optional;

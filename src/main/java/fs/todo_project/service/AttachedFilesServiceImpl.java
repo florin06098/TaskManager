@@ -1,6 +1,6 @@
 package fs.todo_project.service;
 
-import fs.todo_project.entity.AttachedFile;
+import fs.todo_project.model.AttachedFile;
 import fs.todo_project.repository.AttachedFilesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
