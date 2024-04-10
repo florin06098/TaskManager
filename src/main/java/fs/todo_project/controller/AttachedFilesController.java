@@ -5,6 +5,7 @@ import fs.todo_project.model.Task;
 import fs.todo_project.service.AttachedFilesService;
 import fs.todo_project.service.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,12 +43,34 @@ public class AttachedFilesController {
     }
 
     @DeleteMapping("/deleteFile/{fileId}")
-    public String deleteFileFromTask(@RequestParam Integer attachedFileId) {
-        Optional<AttachedFile> file = attachedFilesService.getFile(attachedFileId);
+    public String deleteFileFromTask(@PathVariable Integer fileId) {
+        Optional<AttachedFile> optionalFile = attachedFilesService.getFile(fileId);
+        if (optionalFile.isPresent()) {
+            AttachedFile fileToDelete = optionalFile.get();
+            Task task = fileToDelete.getTask();
+            task.getFiles().remove(fileToDelete);
+            taskService.save(task);
+            attachedFilesService.deleteFile(fileId);
+            return "Successfully deleted the file";
+        } else{
+            return "Could not file the requested file";
+        }
+    }
+
+    @GetMapping("/downloadFile/{fileId}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable Integer fileId) {
+        Optional<AttachedFile> file = attachedFilesService.getFile(fileId);
         if (file.isEmpty()) {
             throw new IllegalArgumentException("No file was found");
         }
-        attachedFilesService.deleteFile(file.get());
-        return "Successfully deleted the file";
+        AttachedFile attachedFile = file.get();
+        byte[] fileContent = attachedFile.getFileData();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(attachedFile.getFileName()).build());
+
+        return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
     }
 }

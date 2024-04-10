@@ -5,6 +5,7 @@ import fs.todo_project.repository.AttachedFilesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.util.Optional;
 @Service
 public class AttachedFilesServiceImpl implements AttachedFilesService{
@@ -13,18 +14,13 @@ public class AttachedFilesServiceImpl implements AttachedFilesService{
     private AttachedFilesRepository attachedFilesRepository;
 
     @Override
-    public Optional<AttachedFile> downloadFile(int id) {
-        return Optional.empty();
-    }
-
-    @Override
     public AttachedFile save(AttachedFile file) {
         return attachedFilesRepository.save(file);
     }
 
     @Override
-    public void deleteFile(AttachedFile file) {
-        attachedFilesRepository.delete(file);
+    public void deleteFile(Integer fileId) {
+        attachedFilesRepository.deleteById(fileId);
     }
 
     @Override

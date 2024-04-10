@@ -4,9 +4,8 @@ import fs.todo_project.model.AttachedFile;
 import java.util.Optional;
 
 public interface AttachedFilesService {
-    Optional<AttachedFile> downloadFile(int id);
     AttachedFile save(AttachedFile file);
-    void deleteFile(AttachedFile file);
+    void deleteFile(Integer fileId);
     Optional<AttachedFile> getFile(int id);
 
 }

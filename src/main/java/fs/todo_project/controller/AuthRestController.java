@@ -1,6 +1,7 @@
 package fs.todo_project.controller;
 
 import fs.todo_project.model.AuthRequest;
+import fs.todo_project.model.TokenResponse;
 import fs.todo_project.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,10 +20,10 @@ public class AuthRestController {
 
 
     @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    public TokenResponse authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
+            return new TokenResponse(jwtService.generateToken(authRequest.getUsername()));
         } else {
             throw new UsernameNotFoundException("Invalid user request!");
         }

@@ -31,6 +31,6 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteTask(int id) {
         Optional<Task> task = getTask(id);
-        task.ifPresent(value -> taskRepository.delete(value));
+        task.ifPresent(taskRepository::delete);
     }
 }

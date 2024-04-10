@@ -41,7 +41,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskPriority taskPriority;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "task", orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER, mappedBy = "task")
     private List<AttachedFile> files = new ArrayList<>();
 
 }
