@@ -1,17 +1,15 @@
 package fs.todo_project.service.impl;
 
 import fs.todo_project.handler.UserAlreadyExists;
-import fs.todo_project.model.Task;
-import fs.todo_project.model.TaskStatus;
+import fs.todo_project.model.*;
 import fs.todo_project.repository.UserRepository;
-import fs.todo_project.model.AuthRequest;
-import fs.todo_project.model.User;
 import fs.todo_project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 
 @Service
@@ -65,13 +63,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public User createTask(Task task, User user) {
-        task.setId(0);
-        task.setTaskStatus(TaskStatus.TODO);
-        user.getTasks().add(task);
-        return userRepository.save(user);
-    }
+//    @Override
+//    public User createTask(Task task, User user) {
+//        task.setId(0);
+//        task.setTaskStatus(TaskStatus.TODO);
+//        task.setTaskPriority(TaskPriority.HIGH);
+//        user.getTasks().add(task);
+//        return userRepository.save(user);
+//    }
 
 
 }

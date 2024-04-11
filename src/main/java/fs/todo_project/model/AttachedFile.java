@@ -22,9 +22,10 @@ public class AttachedFile implements Serializable {
     private String fileName;
     @Lob
     @Column(name = "file_data")
+    @JsonIgnore
     private byte[] fileData;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "task_id")
     @JsonIgnore
     private Task task;

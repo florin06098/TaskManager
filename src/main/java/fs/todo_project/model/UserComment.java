@@ -17,7 +17,7 @@ public class UserComment {
     private String username;
     @Column(name = "comment")
     private String comment;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "task_id")
     @JsonIgnore
     private Task task;

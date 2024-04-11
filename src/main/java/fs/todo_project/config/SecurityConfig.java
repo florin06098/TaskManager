@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(configurer ->
                         configurer
                                 .requestMatchers("/authenticate").permitAll()
-                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers("/user/register").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(sessionManagement ->
                         sessionManagement

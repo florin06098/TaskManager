@@ -41,9 +41,9 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskPriority taskPriority;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task")
     private List<UserComment> userComments = new ArrayList<>();
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task")
     private List<AttachedFile> files = new ArrayList<>();
 
 }

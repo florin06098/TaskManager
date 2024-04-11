@@ -2,7 +2,6 @@ package fs.todo_project.controller;
 
 import fs.todo_project.config.UserDetailsExtension;
 import fs.todo_project.model.Task;
-import fs.todo_project.model.TaskStatus;
 import fs.todo_project.model.User;
 import fs.todo_project.service.impl.JwtService;
 import fs.todo_project.service.TaskService;
@@ -10,6 +9,7 @@ import fs.todo_project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -27,16 +27,24 @@ public class TaskRestController {
         return new ResponseEntity<>(taskService.getTask(id), HttpStatus.OK);
     }
 
+    @GetMapping("/userTasks")
+    public ResponseEntity<List<Task>> getUsersTasks(Authentication authentication){
+        UserDetailsExtension principal = (UserDetailsExtension) authentication.getPrincipal();
+        User user = principal.getUser();
+        return new ResponseEntity<>(taskService.getUserTasks(user.getId()), HttpStatus.OK);
+    }
+
     @GetMapping("/tasks")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<Task>> getTaskList(){
         return new ResponseEntity<>(taskService.getTasks(), HttpStatus.OK);
     }
 
     @PostMapping("/task")
-    public ResponseEntity<User> createTaskForUser(@RequestBody Task theTask, Authentication authentication){
+    public ResponseEntity<Task> createTaskForUser(@RequestBody Task theTask, Authentication authentication){
         UserDetailsExtension principal = (UserDetailsExtension) authentication.getPrincipal();
         User user = principal.getUser();
-        return new ResponseEntity<>(userService.createTask(theTask, user), HttpStatus.OK);
+        return new ResponseEntity<>(taskService.createTask(theTask, user), HttpStatus.OK);
     }
 
     @PutMapping("/task")
@@ -45,8 +53,12 @@ public class TaskRestController {
     }
 
     @DeleteMapping("/task/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Integer id){
-        taskService.deleteTask(id);
+    public ResponseEntity<Void> deleteTask(@PathVariable Integer id, Authentication authentication){
+        UserDetailsExtension principal = (UserDetailsExtension) authentication.getPrincipal();
+        User user = principal.getUser();
+        taskService.deleteTask(id, user);
         return ResponseEntity.ok().build();
     }
+
+
 }
