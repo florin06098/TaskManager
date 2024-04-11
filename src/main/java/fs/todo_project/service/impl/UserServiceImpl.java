@@ -1,9 +1,12 @@
-package fs.todo_project.service;
+package fs.todo_project.service.impl;
 
 import fs.todo_project.handler.UserAlreadyExists;
+import fs.todo_project.model.Task;
+import fs.todo_project.model.TaskStatus;
 import fs.todo_project.repository.UserRepository;
 import fs.todo_project.model.AuthRequest;
 import fs.todo_project.model.User;
+import fs.todo_project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,22 +39,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(AuthRequest authRequest) {
-//        When you update you should keep the List<Task> exactly the same, giving only the possibility to modify the username, the email and the password
-        Optional<User> userFound = userRepository.findByName(authRequest.getUsername());
-        if (userFound.isEmpty()) {
-            throw new IllegalArgumentException("User with username " + authRequest.getUsername() + " does not exist");
-        }
-        User user = new User();
-        user.setName(authRequest.getUsername());
+        User user = userRepository.findByName(authRequest.getUsername()).orElseThrow(() -> new IllegalArgumentException("User with username " + authRequest.getUsername() + " does not exist"));
         user.setEmail(authRequest.getEmail());
         user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public String deleteUser(int id) {
+    public String deleteUser(Integer id) {
         if (userRepository.existsById(id)) {
-            System.out.println("It exists");
             userRepository.deleteById(id);
             return "Succesfully deleted the user";
         } else {
@@ -66,6 +62,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User createTask(Task task, User user) {
+        task.setId(0);
+        task.setTaskStatus(TaskStatus.TODO);
+        user.getTasks().add(task);
         return userRepository.save(user);
     }
 

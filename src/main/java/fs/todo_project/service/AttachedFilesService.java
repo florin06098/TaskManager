@@ -1,11 +1,13 @@
 package fs.todo_project.service;
 
 import fs.todo_project.model.AttachedFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.Optional;
 
 public interface AttachedFilesService {
-    AttachedFile save(AttachedFile file);
+    AttachedFile uploadFile(MultipartFile file, Integer taskId) throws IOException;
     void deleteFile(Integer fileId);
-    Optional<AttachedFile> getFile(int id);
-
+    AttachedFile getFile(Integer id);
 }

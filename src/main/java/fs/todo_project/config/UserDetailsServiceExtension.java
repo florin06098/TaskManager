@@ -17,9 +17,7 @@ public class UserDetailsServiceExtension implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("Entering loadUserByUsername() method");
         Optional<User> userInfo = repository.findByName(username);
-        System.out.println("userInfo: " + userInfo);
 
         return userInfo.map(UserDetailsExtension::new)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found " + username));

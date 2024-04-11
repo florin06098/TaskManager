@@ -34,7 +34,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        System.out.println("Entering securifyFilterChain()");
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(configurer ->
                         configurer
@@ -53,7 +52,6 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        System.out.println("Entering authenticationProvider() method");
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());

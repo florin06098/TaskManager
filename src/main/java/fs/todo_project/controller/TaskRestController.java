@@ -4,15 +4,15 @@ import fs.todo_project.config.UserDetailsExtension;
 import fs.todo_project.model.Task;
 import fs.todo_project.model.TaskStatus;
 import fs.todo_project.model.User;
-import fs.todo_project.handler.TaskNotFoundException;
-import fs.todo_project.service.JwtService;
+import fs.todo_project.service.impl.JwtService;
 import fs.todo_project.service.TaskService;
 import fs.todo_project.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,42 +23,30 @@ public class TaskRestController {
     private final UserService userService;
 
     @GetMapping("/task/{id}")
-    public Task getTask(@PathVariable Integer id){
-        Optional<Task> task = taskService.getTask(id);
-        if(task.isEmpty()){
-            throw new TaskNotFoundException("The task with id: " + id + " does not exist");
-        }
-        return task.get();
+    public ResponseEntity<Task> getTask(@PathVariable Integer id){
+        return new ResponseEntity<>(taskService.getTask(id), HttpStatus.OK);
     }
 
     @GetMapping("/tasks")
-    public List<Task> getTaskList(){
-        return taskService.getTasks();
+    public ResponseEntity<List<Task>> getTaskList(){
+        return new ResponseEntity<>(taskService.getTasks(), HttpStatus.OK);
     }
 
     @PostMapping("/task")
-    public Task createTaskForUser(@RequestBody Task theTask, Authentication authentication){
+    public ResponseEntity<User> createTaskForUser(@RequestBody Task theTask, Authentication authentication){
         UserDetailsExtension principal = (UserDetailsExtension) authentication.getPrincipal();
         User user = principal.getUser();
-        // 0 is used to insert a new row in the db
-        theTask.setId(0);
-        theTask.setTaskStatus(TaskStatus.TODO);
-        user.getTasks().add(theTask);
-        userService.save(user);
-        return theTask;
+        return new ResponseEntity<>(userService.createTask(theTask, user), HttpStatus.OK);
     }
 
     @PutMapping("/task")
-    public Task updateTask(@RequestBody Task theTask){
-        if(taskService.getTask(theTask.getId()).isPresent()){
-            return taskService.save(theTask);
-        } else{
-            throw new TaskNotFoundException("Could not update the task: " + theTask.getName() + " because it does not exist");
-        }
+    public ResponseEntity<Task> updateTask(@RequestBody Task theTask){
+        return new ResponseEntity<>(taskService.updateTask(theTask), HttpStatus.OK);
     }
 
     @DeleteMapping("/task/{id}")
-    public void deleteTask(@PathVariable Integer id){
-          taskService.deleteTask(id);
+    public ResponseEntity<Void> deleteTask(@PathVariable Integer id){
+        taskService.deleteTask(id);
+        return ResponseEntity.ok().build();
     }
 }

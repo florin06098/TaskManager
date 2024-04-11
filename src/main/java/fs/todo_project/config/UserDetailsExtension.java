@@ -17,7 +17,6 @@ public class UserDetailsExtension implements UserDetails {
     private User user;
 
     public UserDetailsExtension(User user) {
-        System.out.println("Entering UserInfoUserDetails() method");
         this.user = user;
         this.name = user.getName();
         this.password = user.getPassword();

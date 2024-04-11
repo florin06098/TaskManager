@@ -1,4 +1,4 @@
-package fs.todo_project.service;
+package fs.todo_project.service.impl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

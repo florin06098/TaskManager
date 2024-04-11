@@ -24,7 +24,7 @@ public class AttachedFile implements Serializable {
     @Column(name = "file_data")
     private byte[] fileData;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "task_id")
     @JsonIgnore
     private Task task;
