@@ -8,8 +8,8 @@ import fs.todo_project.repository.TaskRepository;
 import fs.todo_project.model.Task;
 import fs.todo_project.repository.UserRepository;
 import fs.todo_project.service.TaskService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -29,6 +29,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public List<Task> getUserTasks(Integer id) {
         return taskRepository.findUserTasks(id);
     }
@@ -46,6 +47,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public void deleteTask(Integer id, User user) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("No task found with id: " + id));
@@ -59,7 +61,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task createTask(Task task, User user) {
-        task.setId(0);
         task.setTaskStatus(TaskStatus.TODO);
         task.setTaskPriority(TaskPriority.HIGH);
         user.getTasks().add(task);
