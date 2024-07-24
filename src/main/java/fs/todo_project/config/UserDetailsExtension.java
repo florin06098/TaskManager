@@ -20,8 +20,6 @@ public class UserDetailsExtension implements UserDetails {
         this.user = user;
         this.name = user.getName();
         this.password = user.getPassword();
-        System.out.println("name: " + name);
-        System.out.println("password: " + password);
         this.authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
@@ -31,6 +29,7 @@ public class UserDetailsExtension implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
+
 
     @Override
     public String getPassword() {

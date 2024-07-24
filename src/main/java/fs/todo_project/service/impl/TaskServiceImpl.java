@@ -1,5 +1,6 @@
 package fs.todo_project.service.impl;
 
+import fs.todo_project.config.UserDetailsExtension;
 import fs.todo_project.handler.TaskNotFoundException;
 import fs.todo_project.model.TaskPriority;
 import fs.todo_project.model.TaskStatus;
@@ -30,8 +31,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-    public List<Task> getUserTasks(Integer id) {
-        return taskRepository.findUserTasks(id);
+    public List<User> getUserTasks(UserDetailsExtension userDetailsExtension) {
+        System.out.println("getUserTasks from service has been called");
+
+        List<User> userAndTasks = userRepository.findUserAndTasks(userDetailsExtension.getUser().getId());
+        System.out.println("user and tasks: " + userAndTasks);
+        return userAndTasks;
     }
 
     @Override

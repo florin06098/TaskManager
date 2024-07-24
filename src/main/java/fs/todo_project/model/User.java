@@ -12,10 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedEntityGraph(
-        name = "user-with-tasks-graph",
-        attributeNodes = @NamedAttributeNode("tasks")
-)public class User {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -31,4 +28,12 @@ import java.util.List;
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "task_id"))
     private List<Task> tasks = new ArrayList<>();
+
+    public User(int id, String name, String email, String password, String roles) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
 }

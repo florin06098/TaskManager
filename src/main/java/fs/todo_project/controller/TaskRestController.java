@@ -18,9 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class TaskRestController {
-    private final JwtService jwtService;
     private final TaskService taskService;
-    private final UserService userService;
 
     @GetMapping("/task/{id}")
     public ResponseEntity<Task> getTask(@PathVariable Integer id){
@@ -28,10 +26,10 @@ public class TaskRestController {
     }
 
     @GetMapping("/userTasks")
-    public ResponseEntity<List<Task>> getUsersTasks(Authentication authentication){
-        UserDetailsExtension principal = (UserDetailsExtension) authentication.getPrincipal();
-        User user = principal.getUser();
-        return new ResponseEntity<>(taskService.getUserTasks(user.getId()), HttpStatus.OK);
+    public ResponseEntity<List<User>> getUserTasks(Authentication authentication){
+        System.out.println("getUserTasks called");
+        UserDetailsExtension userDetails = (UserDetailsExtension) authentication.getPrincipal();
+        return new ResponseEntity<>(taskService.getUserTasks(userDetails), HttpStatus.OK);
     }
 
     @GetMapping("/tasks")
